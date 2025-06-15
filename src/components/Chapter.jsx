@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 
-const Chapter = ({ title, text }) => {
+const Chapter = ({ title, text, isLast }) => {
   return (
-    <section className="w-full min-h-screen flex flex-col items-center justify-center bg-yellow-50 px-4 py-10 text-center">
+    <section className={`w-full ${
+    isLast ? "min-h-[60vh]" : "min-h-screen"} flex flex-col items-center justify-center bg-yellow-50 px-4 py-8 text-center`}>
       <motion.h1
-        className="text-3xl sm:text-4xl md:text-5xl font-script text-yellow-600 mb-6 leading-snug"
+        className="text-3xl sm:text-4xl md:text-5xl font-script text-yellow-600 mb-4 leading-snug"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}

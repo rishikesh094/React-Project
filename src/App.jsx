@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Chapter from "./components/Chapter";
 import chapters from "./memories";
+import { motion } from "framer-motion";
 import FinalNote from "./pages/FinalNote";
+import WelcomeScreen from "./components/WelcomeScreen"; // Import the welcome screen
 
 function Home() {
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -15,8 +17,8 @@ function Home() {
     const isLastChapter = selectedIndex === chapters.length - 1;
 
     return (
-      <div className="relative bg-yellow-50 min-h-screen px-4 py-10 md:px-12 md:py-14">
-        <Chapter title={chapter.chapter} text={chapter.content} />
+      <div className="relative bg-yellow-50 min-h-screen px-4 py-10">
+        <Chapter title={chapter.chapter} text={chapter.content} isLast={selectedIndex === chapters.length - 1}/>
 
         <button
           onClick={handleBack}
@@ -26,7 +28,17 @@ function Home() {
         </button>
 
         {isLastChapter && (
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center ">
+            {/* 👇 Animated hand arrow */}
+            <motion.div
+              initial={{ y: 0 }}
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 1 }}
+              className="text-3xl mb-4"
+            >
+              👇
+            </motion.div>
+
             <button
               onClick={() => navigate("/final-note")}
               className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-xl shadow font-bold text-lg transition"
@@ -34,15 +46,16 @@ function Home() {
               🌼 Ek Chhoti Si Baat
             </button>
           </div>
+
         )}
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-yellow-50 px-4 py-10 md:px-10 md:py-14 flex flex-col items-center">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-script text-yellow-600 mb-10 text-center leading-tight">
-        📖 Meri Kahani
+    <div className="min-h-screen bg-yellow-50 px-4 py-10 flex flex-col items-center">
+      <h1 className="text-4xl font-cursive md:text-7xl md:font-semibold font-script text-yellow-600 mb-10 text-center">
+        🔖 Moments That Mattered
       </h1>
 
       <div className="w-full max-w-3xl space-y-6">
@@ -71,4 +84,18 @@ function App() {
   );
 }
 
-export default App;
+function AppWrapper() {
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  return (
+    <>
+      {showWelcome ? (
+        <WelcomeScreen onFinish={() => setShowWelcome(false)} />
+      ) : (
+        <App />
+      )}
+    </>
+  );
+}
+
+export default AppWrapper;

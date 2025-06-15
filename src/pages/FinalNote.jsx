@@ -8,7 +8,7 @@ function FinalNote() {
       </h1>
 
       <p className="text-base sm:text-lg md:text-xl max-w-2xl text-gray-800 leading-relaxed mb-10">
-        Main tumse ab tak jitni baatein ki hain... un sab mein jis ladki ki baat karta tha, wo <span className="font-semibold text-yellow-800">tum hi thi</span>.<br /><br />
+        Main tumse ab tak jitni baatein ki hain... un sab mein jis ladki ki baat karta tha, wo <span className="font-semibold text-yellow-800">tum hi ho</span>.<br /><br />
         Main sirf itna kehna chahta hoon — <span className="font-medium text-yellow-700">mujhe tumse dosti karni hai</span>, bas ek acchi si dosti.
       </p>
 
