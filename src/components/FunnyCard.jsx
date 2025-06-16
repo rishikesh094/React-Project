@@ -1,16 +1,27 @@
 import React, { useRef, useState } from "react";
 
 const FunnyCard = () => {
-  const submitButtonRef = useRef(); // hidden submit button reference
+  const submitButtonRef = useRef();
   const [showModal, setShowModal] = useState(false);
+  const [noButtonStyle, setNoButtonStyle] = useState({});
 
   const handleYesClick = () => {
-    submitButtonRef.current.click(); // now it submits naturally
+    submitButtonRef.current.click();
     setShowModal(true);
 
     setTimeout(() => {
-    window.location.href = "https://journey-r.netlify.app/";
-  }, 2000);
+      window.location.href = "https://journey-r.netlify.app/";
+    }, 2000);
+  };
+
+  const moveButton = () => {
+    const x = Math.floor(Math.random() * 160) - 80;
+    const y = Math.floor(Math.random() * 140);
+    setNoButtonStyle({
+      transform: `translate(${x}px, ${y}px)`,
+      transition: "transform 0.3s ease",
+      position: "relative",
+    });
   };
 
   return (
@@ -29,15 +40,17 @@ const FunnyCard = () => {
           </button>
 
           <button
-            onMouseOverCapture={() => {}}
-            className="bg-yellow-800 hover:bg-yellow-900 text-white px-6 py-2 rounded-lg font-medium transition duration-300"
+            onMouseOver={moveButton}
+            onClick={moveButton}
+            style={noButtonStyle}
+            className="bg-yellow-800 text-white px-6 py-2 rounded-lg font-medium transition duration-300"
           >
             Nahin
           </button>
         </div>
       </div>
 
-      {/* Hidden form connected to Getform */}
+      {/* Hidden form */}
       <form
         action="https://getform.io/f/bqomqgob"
         method="POST"
@@ -50,12 +63,10 @@ const FunnyCard = () => {
           name="_redirect"
           value="https://journey-r.netlify.app/"
         />
-
-        {/* 👇 Hidden submit button */}
         <button type="submit" ref={submitButtonRef}></button>
       </form>
 
-      {/* Modal after success */}
+      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-sm text-center shadow-xl">
